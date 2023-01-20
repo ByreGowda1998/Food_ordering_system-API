@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{%  block content  %}
+
+ 
+{% include 'messages.html' %}
+  <style>
+
+body{
+
+        background-color: bisque;
+    }
+  </style>
+
+<body>
+    
+  <h2 align ='center'>Log in to Your Account </h2>
+    <div class="container" style="margin-top:20px;">
+        
+        <div class="row">
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4">
+                <form method='POST' action ="">
+                    {% csrf_token %}
+                    {{ login_form|crispy}}
+                        <button class="btn btn-success" action="" type="submit">Login</button>
+                    </form>
+                    Don't have an account? <a href="{%  url 'register' %}"><strong>Register Here</strong>!
+            </div>
+
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</body>
+{%  endblock  %}
