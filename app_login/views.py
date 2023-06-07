@@ -10,7 +10,7 @@ from app_login.models import User,Profile
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 
-
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -106,4 +106,5 @@ def Profile(request):
             return render(request, 'app_login/profilepage.html')
     form = Profile_form()
     return render(request,'app_login/profilepage.html',{'profile_form':form})
+
 

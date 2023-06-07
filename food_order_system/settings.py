@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'booking_app',
     'rest_framework.authtoken',
+    'rest_framework_api_key',
    
     
     
@@ -89,25 +90,18 @@ WSGI_APPLICATION = 'food_order_system.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-"""
+
+
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'food_order_system', 
-        'USER': 'postgres', 
-        'PASSWORD': 'byre@quadwave',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
-    }
-}
 
 
 
@@ -196,24 +190,36 @@ MESSAGE_TAGS = {
 
 #Email
 
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '0640f459eb5b12'
-EMAIL_HOST_PASSWORD = 'f284a90920950a'
-EMAIL_PORT = '2525'
 
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-               'rest_framework.authentication.TokenAuthentication',
-    ),
-}
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#                'rest_framework.authentication.TokenAuthentication',
+#     ),
+# }
     
 
 
 
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.IsAuthenticated',
-#     ]
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        #  'rest_framework.permissions.IsAuthenticated',
+        'rest_framework_api_key.permissions.HasAPIKey',
+    ]
+}
+
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '54b9fe26432551'
+EMAIL_HOST_PASSWORD = 'e15e3368d86d3b'
+EMAIL_PORT = '2525'
+
+
+
+API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
